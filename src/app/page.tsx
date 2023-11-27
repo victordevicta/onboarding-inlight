@@ -5,7 +5,7 @@ import Button from "@/components/Button/Button";
 export default function App() {
   const healthcheck = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/healthcheck", {
+      const response = await fetch("/api/healthcheck", {
         method: "GET",
       });
 
