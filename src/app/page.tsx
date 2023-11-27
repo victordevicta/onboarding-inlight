@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import Button from "@/components/Button/Button";
 
-export async function healthcheck() {
+const healthcheck = async () => {
   try {
     const response = await fetch("/api/healthcheck", {
       method: "GET",
@@ -15,7 +15,7 @@ export async function healthcheck() {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export default function App() {
   useEffect(() => {
