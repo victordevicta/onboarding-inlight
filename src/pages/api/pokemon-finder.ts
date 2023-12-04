@@ -42,7 +42,7 @@ export async function getAllPokemon() {
     QueryGetAllPokemonArgs
   >({
     query: getAllPokemon,
-    variables: { offset: 89, take: 251 },
+    variables: { offset: 92, take: 251 },
   });
 
   return pokemonData;

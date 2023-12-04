@@ -49,6 +49,7 @@ export function PokemonGrid({ pokemonList }: PokemonGridProps) {
               key={pokemon.key}
               name={pokemon.species}
               sprite={pokemon.sprite}
+              types={pokemon.types}
             />
           );
         })}
