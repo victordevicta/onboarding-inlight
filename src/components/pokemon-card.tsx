@@ -4,13 +4,24 @@ import { PokemonImage } from "./pokemon-image";
 
 interface PokemonCardProps {
   key: PokemonEnum;
+  num: number;
   name: string;
   sprite: string;
   types: readonly PokemonType[];
 }
 
-export function PokemonCard({ key, name, sprite, types }: PokemonCardProps) {
+export function PokemonCard({
+  key,
+  num,
+  name,
+  sprite,
+  types,
+}: PokemonCardProps) {
+  // format Missingno's name
+  name === "'m (00)" ? (name = "missingNo.") : (name = name);
+
   const formatedName = name.charAt(0).toUpperCase() + name.slice(1);
+
   return (
     <Link
       href={name}
@@ -35,6 +46,7 @@ export function PokemonCard({ key, name, sprite, types }: PokemonCardProps) {
             justifyContent: "center",
           }}
         >
+          <h3>{`Number: ${num}`}</h3>
           {types.map((type: PokemonType) => {
             return <h3 key={key}>{`Type: ${type.name}`}</h3>;
           })}

@@ -42,7 +42,7 @@ export async function getAllPokemon() {
     QueryGetAllPokemonArgs
   >({
     query: getAllPokemon,
-    variables: { offset: 92, take: 251 },
+    variables: { offset: 92, take: 345 },
   });
 
   return pokemonData;
@@ -60,6 +60,17 @@ export async function getPokemon(name: PokemonEnum) {
         }
         sprite
         species
+        flavorTexts {
+          flavor
+        }
+        baseStats {
+          attack
+          defense
+          hp
+          specialattack
+          specialdefense
+          speed
+        }
       }
     }
   `;

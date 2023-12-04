@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Button from "@/components/button";
-import { getAllPokemon, getPokemon } from "@/pages/api/pokemon-finder";
-import { Pokemon, PokemonEnum } from "@favware/graphql-pokemon";
+import { getAllPokemon } from "@/pages/api/pokemon-finder";
+import { Pokemon } from "@favware/graphql-pokemon";
 import { PokemonGrid } from "@/components/pokemon-grid";
 
 const healthcheck = async () => {
@@ -24,20 +23,7 @@ export default function App() {
   const [pokemonList, setPokemonList] = useState<
     Omit<readonly Pokemon[], "__typename">
   >([]);
-  const [pokemon, setPokemon] = useState<Omit<Pokemon, "__typename">>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const getPokemonHandler = async (pokemonName: PokemonEnum) => {
-    setIsLoading(true);
-    try {
-      const data = await getPokemon(pokemonName);
-      if (data) setPokemon(data);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
     healthcheck();
@@ -45,7 +31,20 @@ export default function App() {
       setIsLoading(true);
       try {
         const data = await getAllPokemon();
-        if (data) setPokemonList(data);
+        if (data) {
+          const pokemonListNonSpecials = data.reduce(
+            (accumulator: Pokemon[], current) => {
+              if (
+                !accumulator.find((item: Pokemon) => item.num === current.num)
+              ) {
+                accumulator.push(current);
+              }
+              return accumulator;
+            },
+            []
+          );
+          setPokemonList(pokemonListNonSpecials);
+        }
       } catch (error) {
         console.log(error);
       } finally {
